@@ -11,8 +11,8 @@ function App() {
   const handleClick=(e)=>{
     e.preventDefault()
     const newErrors = {
-      firstName: !firstName.trim(),
-      lastName: !lastName.trim(),
+      firstName: !fname.trim(),
+      lastName: !lname.trim(),
     };
     setErrors(newErrors);
 
