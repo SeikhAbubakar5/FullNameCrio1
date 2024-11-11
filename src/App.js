@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import toast, { Toaster } from 'react-hot-toast';
 import './App.css';
 
 function App() {
@@ -9,6 +10,10 @@ function App() {
 
   const handleClick=(e)=>{
     e.preventDefault()
+    if (!fname || !lname) {
+      toast.error('Please fill out this field.');
+      return;
+    }
     setFullname(`${fname} ${lname}`)
   }
 
@@ -31,7 +36,8 @@ function App() {
          </form>
 
          <div>
-            <h3>Full Name:{fullName}</h3>
+            <h2>Full Name: {fullName}</h2>
+            <Toaster position="top-center" />
          </div>
     </div>
     
