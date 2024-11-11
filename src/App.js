@@ -1,5 +1,4 @@
 import React, { useState } from "react"
-import toast, { Toaster } from 'react-hot-toast';
 import './App.css';
 
 function App() {
@@ -7,11 +6,18 @@ function App() {
   const [fname, setFname]=useState("")
   const [lname, setLname]=useState("")
   const [fullName, setFullname]=useState("")
+  const [errors, setErrors] = useState({ firstName: false, lastName: false });
 
   const handleClick=(e)=>{
     e.preventDefault()
-    if (!fname || !lname) {
-      toast.error('Please fill out this field.');
+    const newErrors = {
+      firstName: !firstName.trim(),
+      lastName: !lastName.trim(),
+    };
+    setErrors(newErrors);
+
+    if (newErrors.firstName || newErrors.lastName) {
+      setFullname('');
       return;
     }
     setFullname(`${fname} ${lname}`)
@@ -25,19 +31,24 @@ function App() {
                 FirstName:
                 <input type="text" value={fname} onChange={((e)=>setFname(e.target.value))}/>
               </label>
+              {errors.firstName && (
+          <p style={{ color: 'red', margin: '5px 0' }}>Please fill out this filed</p>
+        )}
           </div>
           <div>
             <label>
               LastName:
               <input type="text" value={lname} onChange={((e)=>setLname(e.target.value))}/>
             </label>
+            {errors.lastName && (
+          <p style={{ color: 'red', margin: '5px 0' }}>Please fill out this filed</p>
+        )}
           </div>
           <button type="submit">Submit</button>
          </form>
 
          <div>
             <h2>Full Name: {fullName}</h2>
-            <Toaster position="top-center" />
          </div>
     </div>
     
