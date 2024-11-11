@@ -15,9 +15,9 @@ function App() {
       lastName: !lname.trim(),
     };
     setErrors(newErrors);
-
+ 
     if (newErrors.firstName || newErrors.lastName) {
-      setFullname('');
+      setFullname(""); 
       return;
     }
     setFullname(`${fname} ${lname}`)
@@ -25,6 +25,7 @@ function App() {
 
   return (
     <div className="App">
+      <h1>Full Name Display</h1>
          <form onSubmit={handleClick}>
           <div>
               <label>
