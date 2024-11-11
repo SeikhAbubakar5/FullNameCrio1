@@ -2,42 +2,27 @@ import React, { useState } from "react";
 import './App.css';
 
 function App() {
-
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
   const [fullName, setFullname] = useState("");
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState({ fname: "", lname: "" });
 
   const handleClick = (e) => {
     e.preventDefault();
-    const validationErrors = validate({ fname, lname });
-    setErrors(validationErrors);
 
-    if (Object.keys(validationErrors).length === 0) {
+
+    const newErrors = {
+      fname: fname.trim() ? "" : "Please fill out this field",
+      lname: lname.trim() ? "" : "Please fill out this field",
+    };
+    setErrors(newErrors);
+
+    if (!newErrors.fname && !newErrors.lname) {
       setFullname(`${fname} ${lname}`);
     } else {
-      setFullname(''); 
+      setFullname("");
     }
-  }
-
-  const validate = (values) => {
-    const err = {};
-    const regex = /[-’/`~!#*$@_%+=.,^&(){}[\]|;:”<>?\\]/g;
-
-    if (!values.fname) {
-      err.fname = "Please fill out this field";
-    } else if (regex.test(values.fname)) {
-      err.fname = "This is not a correct input";
-    }
-
-    if (!values.lname) {
-      err.lname = "Please fill out this field";
-    } else if (regex.test(values.lname)) {
-      err.lname = "This is not a correct input";
-    }
-
-    return err;
-  }
+  };
 
   return (
     <div className="App">
@@ -45,17 +30,29 @@ function App() {
       <form onSubmit={handleClick}>
         <div>
           <label>
-            FirstName:
-            <input type="text" value={fname} onChange={(e) => setFname(e.target.value)} />
+            First Name:
+            <input
+              type="text"
+              value={fname}
+              onChange={(e) => setFname(e.target.value)}
+            />
           </label>
-          {errors.fname && <p style={{ color: 'red', margin: '5px 0' }}>{errors.fname}</p>}
+          {errors.fname && (
+            <p style={{ color: "red", margin: "5px 0" }}>{errors.fname}</p>
+          )}
         </div>
         <div>
           <label>
-            LastName:
-            <input type="text" value={lname} onChange={(e) => setLname(e.target.value)} />
+            Last Name:
+            <input
+              type="text"
+              value={lname}
+              onChange={(e) => setLname(e.target.value)}
+            />
           </label>
-          {errors.lname && <p style={{ color: 'red', margin: '5px 0' }}>{errors.lname}</p>}
+          {errors.lname && (
+            <p style={{ color: "red", margin: "5px 0" }}>{errors.lname}</p>
+          )}
         </div>
         <button type="submit">Submit</button>
       </form>
