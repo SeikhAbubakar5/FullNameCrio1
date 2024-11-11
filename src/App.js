@@ -10,7 +10,6 @@ function App() {
   const handleClick = (e) => {
     e.preventDefault();
 
-
     const newErrors = {
       fname: fname.trim() ? "" : "Please fill out this field",
       lname: lname.trim() ? "" : "Please fill out this field",
@@ -20,7 +19,7 @@ function App() {
     if (!newErrors.fname && !newErrors.lname) {
       setFullname(`${fname} ${lname}`);
     } else {
-      setFullname("");
+      setFullname(""); 
     }
   };
 
@@ -57,9 +56,11 @@ function App() {
         <button type="submit">Submit</button>
       </form>
 
-      <div>
-        <h2>Full Name: {fullName}</h2>
-      </div>
+      {fullName && (
+        <div>
+          <h2>Full Name: {fullName}</h2>
+        </div>
+      )}
     </div>
   );
 }
